@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>coroutine | 1by2</title>
+    <link>https://1by2.github.io/tag/coroutine/</link>
+      <atom:link href="https://1by2.github.io/tag/coroutine/index.xml" rel="self" type="application/rss+xml" />
+    <description>coroutine</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020 1by2.ALL RIGHTS RESERVED</copyright><lastBuildDate>Thu, 28 May 2020 16:15:08 +0530</lastBuildDate>
+    <image>
+      <url>https://1by2.github.io/images/icon_huf9bf6f6e13f354639431eeb48d0f0af0_35542_512x512_fill_lanczos_center_2.png</url>
+      <title>coroutine</title>
+      <link>https://1by2.github.io/tag/coroutine/</link>
+    </image>
+    
+    <item>
+      <title>Part 2 Generator: Python Coroutine</title>
+      <link>https://1by2.github.io/post/python/generator2/</link>
+      <pubDate>Thu, 28 May 2020 16:15:08 +0530</pubDate>
+      <guid>https://1by2.github.io/post/python/generator2/</guid>
+      <description>&lt;h3 id=&#34;if-you-dont-know-about-what-generator-is--please-have-a-look-at-a-hrefpostpythongeneratorthisa-post&#34;&gt;If you don&amp;rsquo;t know about What generator is ? Please have a look at &lt;a href=&#34;https://1by2.github.io/post/python/generator/&#34;&gt;this&lt;/a&gt; post.&lt;/h3&gt;
+&lt;h1 id=&#34;lets-deep-dive&#34;&gt;Let’s, deep dive!&lt;/h1&gt;
+&lt;h2 id=&#34;understanding-subroutine&#34;&gt;Understanding Subroutine&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;./subroutine.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;When the logic for a function with complex behavior is divided into several small steps that are themselves functions, these functions are called &lt;code&gt;helper functions&lt;/code&gt; or &lt;code&gt;subroutines&lt;/code&gt;. Subroutines are called by the main function that is responsible for coordinating the use of several subroutines.&lt;/p&gt;
+&lt;h2 id=&#34;understanding-coroutine&#34;&gt;Understanding Coroutine&lt;/h2&gt;
+&lt;p&gt;There is another approach for dividing or decomposing a complex program. In the above approach, we have only one entry point, the main function. Using &lt;code&gt;coroutines&lt;/code&gt; we will have one entry point but &lt;code&gt;multiple re-entry points&lt;/code&gt;. When using coroutines, there is no main function to coordinate results. Instead, coroutines themselves link together to form a &lt;code&gt;pipeline&lt;/code&gt;. There may be a coroutine for consuming the incoming data and sending it to other coroutines. There may be coroutines that each do simple processing steps on data sent to them, and there may finally be another coroutine that outputs a final result.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./coroutine.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Let’s explore how python supports building coroutines with the &lt;strong&gt;yield&lt;/strong&gt; and &lt;strong&gt;send()&lt;/strong&gt; statements.&lt;/p&gt;
+&lt;p&gt;So far we have seen that python generator function &lt;strong&gt;yield&lt;/strong&gt; a value. But it can also consume a value using &lt;strong&gt;(yield)&lt;/strong&gt;. Apart from yield and next(), the generator object also have &lt;strong&gt;send()&lt;/strong&gt; and &lt;strong&gt;close()&lt;/strong&gt; functions.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
+&amp;gt;&amp;gt;&amp;gt; value = (yield)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h6 id=&#34;pep-342httpswwwpythonorgdevpepspep-0342-explains-the-exact-rules-which-are-that-a-yield-expression-must-always-be-parenthesized-except-when-it-occurs-at-the-top-level-expression-on-the-right-hand-side-of-an-assignment&#34;&gt;
+&lt;a href=&#34;https://www.python.org/dev/peps/pep-0342&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PEP 342&lt;/a&gt; explains the exact rules, which are that a yield-expression must always be parenthesized except when it occurs at the top-level expression on the right-hand side of an assignment.&lt;/h6&gt;
+&lt;p&gt;With this statement, execution pauses until the object&amp;rsquo;s send method is invoked with an argument&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
+&amp;gt;&amp;gt;&amp;gt; coroutine.send(data)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, execution resumes, with the value being assigned to the value of data.&lt;/p&gt;
+&lt;h3 id=&#34;lets-look-at-an-example-to-clarify-things-up&#34;&gt;Let’s look at an example to clarify things up:&lt;/h3&gt;
+&lt;p&gt;We will design two functions. The first function &lt;code&gt;emit_word()&lt;/code&gt; will &lt;code&gt;produce&lt;/code&gt; words from the given input string and &lt;code&gt;emit/send&lt;/code&gt; our second function &lt;code&gt;pattern()&lt;/code&gt; will &lt;code&gt;consume&lt;/code&gt; the input word and will give the output if a pattern &lt;code&gt;p&lt;/code&gt; is in the &lt;code&gt;input word&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;consumer&#34;&gt;Consumer:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Consumer
+&amp;gt;&amp;gt;&amp;gt; def pattern(p):
+        print(f&amp;quot;Searching for {p}&amp;quot;)
+        try:
+            while True:
+                s = (yield)
+                if p in s:
+                    print(s)
+        except GeneratorExit:
+            print(&amp;quot;=== Completed ===&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;examining-the-consumer-functioin&#34;&gt;Examining the consumer functioin:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
+&amp;gt;&amp;gt;&amp;gt; p = pattern(&amp;quot;apple&amp;quot;)
+&amp;gt;&amp;gt;&amp;gt; next(p)
+Seraching for apple
+# The generator function will pause until send() is called.
+&amp;gt;&amp;gt;&amp;gt; p.send(&amp;quot;An apple a day keeps the doctor away&amp;quot;)
+An apple a day keeps the doctor away
+&amp;gt;&amp;gt;&amp;gt; p.send(&amp;quot;A strawberry a day keeps the doctor away&amp;quot;)
+&amp;gt;&amp;gt;&amp;gt; p.send(&amp;quot;My mom gave me an apple&amp;quot;)
+My mom gave me an apple
+&amp;gt;&amp;gt;&amp;gt; p.close()
+===Completed===
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;producer&#34;&gt;Producer:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#Producer
+&amp;gt;&amp;gt;&amp;gt; def emit_word(string, match):
+        for word in string.split():
+	          match.send(word)
+        match.close()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;examining-the-producer-functioin&#34;&gt;Examining the producer functioin:&lt;/h3&gt;
+&lt;p&gt;For each word in a given string it emits/send the word to the consumer function&lt;/p&gt;
+&lt;h3 id=&#34;joining-all-together&#34;&gt;Joining all together:&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;gt;&amp;gt;&amp;gt; string = &amp;quot;Pen Pineapple apple pen&amp;quot;
+&amp;gt;&amp;gt;&amp;gt; match = pattern(&amp;quot;apple&amp;quot;)
+&amp;gt;&amp;gt;&amp;gt; next(match)
+Seraching for apple
+&amp;gt;&amp;gt;&amp;gt; emit_word(string, match)
+Pineapple
+apple
+===Completed===
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;key-takeaways-generators&#34;&gt;Key takeaways: generators&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Generators produce values one-at-a-time as opposed to giving them all at once.&lt;/li&gt;
+&lt;li&gt;There are two ways to create generators: generator functions and generator expressions.&lt;/li&gt;
+&lt;li&gt;Generator functions yield, regular functions return.&lt;/li&gt;
+&lt;li&gt;Generator expressions need (), list comprehensions use [].&lt;/li&gt;
+&lt;li&gt;You can only use generator expressions once.&lt;/li&gt;
+&lt;li&gt;There are two ways to get values from generators: the next() function and a for loop. The for loop is often the preferred method.&lt;/li&gt;
+&lt;li&gt;We can use generators to read huge files to give us one line at a time. By not loading everything in memory at once.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
