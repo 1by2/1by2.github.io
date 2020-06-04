@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data warehouse | 1by2</title>
+    <link>https://1by2.github.io/tag/data-warehouse/</link>
+      <atom:link href="https://1by2.github.io/tag/data-warehouse/index.xml" rel="self" type="application/rss+xml" />
+    <description>Data warehouse</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020 1by2.ALL RIGHTS RESERVED</copyright><lastBuildDate>Thu, 04 Jun 2020 19:29:29 +0530</lastBuildDate>
+    <image>
+      <url>https://1by2.github.io/images/icon_huf9bf6f6e13f354639431eeb48d0f0af0_35542_512x512_fill_lanczos_center_2.png</url>
+      <title>Data warehouse</title>
+      <link>https://1by2.github.io/tag/data-warehouse/</link>
+    </image>
+    
+    <item>
+      <title>Introduction: Data warehouse</title>
+      <link>https://1by2.github.io/post/data-engineering/data-warehouse/</link>
+      <pubDate>Thu, 04 Jun 2020 19:29:29 +0530</pubDate>
+      <guid>https://1by2.github.io/post/data-engineering/data-warehouse/</guid>
+      <description>&lt;h1 id=&#34;data-warehouse&#34;&gt;Data Warehouse&lt;/h1&gt;
+&lt;p&gt;A central repository of information that can be analyzed to make informed decisions. Data flows into a data warehouse from transactional systems, relational databases, and other sources.&lt;/p&gt;
+&lt;h1 id=&#34;the-core-architecture-boils-down-to-some--&#34;&gt;The core architecture boils down to some -&lt;/h1&gt;
+&lt;h2 id=&#34;pre-processing&#34;&gt;Pre-Processing&lt;/h2&gt;
+&lt;p&gt;When data collection is from a number of different sources. Consistency in the format is essential before loading into a data warehouse.&lt;/p&gt;
+&lt;h2 id=&#34;staging&#34;&gt;Staging&lt;/h2&gt;
+&lt;p&gt;A holding area, where you put data after pre-processing (but not always) — and store it transiently until it’s processed further down the line. This is the last point where the data should be found in its raw form. (Amazon s3, Google Cloud Storage, etc are useful cloud products for staging area)&lt;/p&gt;
+&lt;h2 id=&#34;master&#34;&gt;Master&lt;/h2&gt;
+&lt;p&gt;The master area is where the incoming data takes some real shape.
+The master schema should contain correctly modeled tables, that are appropriately named. Data Cleaning is mostly done here.&lt;/p&gt;
+&lt;h2 id=&#34;reporting&#34;&gt;Reporting&lt;/h2&gt;
+&lt;p&gt;Business analysts, data scientists, and decision-makers access the data through business intelligence (BI) tools, SQL clients, and other analytics applications. Businesses use reports, dashboards, and analytics tools to extract insights from their data, monitor business performance, and support decision making. These reports, dashboards, and analytics tools are powered by data warehouses. (To analyze data Amazon Redshift, Google Bigquery, etc are useful big data cloud products)&lt;/p&gt;
+&lt;h2 id=&#34;key-points&#34;&gt;Key Points&lt;/h2&gt;
+&lt;p&gt;Data Warehouse consists of highly curated data that serves as the central version of the truth, the data schema is designed prior DW implementation (schema-on-write). Used for batch reporting, business intelligence, and data visualization by business analyst.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

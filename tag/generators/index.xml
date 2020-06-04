@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>generators | 1by2</title>
+    <title>Generators | 1by2</title>
     <link>https://1by2.github.io/tag/generators/</link>
       <atom:link href="https://1by2.github.io/tag/generators/index.xml" rel="self" type="application/rss+xml" />
-    <description>generators</description>
+    <description>Generators</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020 1by2.ALL RIGHTS RESERVED</copyright><lastBuildDate>Thu, 28 May 2020 16:15:08 +0530</lastBuildDate>
     <image>
       <url>https://1by2.github.io/images/icon_huf9bf6f6e13f354639431eeb48d0f0af0_35542_512x512_fill_lanczos_center_2.png</url>
-      <title>generators</title>
+      <title>Generators</title>
       <link>https://1by2.github.io/tag/generators/</link>
     </image>
     
@@ -208,7 +208,7 @@ StopIteration
 &amp;gt;&amp;gt;&amp;gt; next(even_numbers)
 6
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;A href=&#34;https://1by2.github.io/post/python/generator2/&#34;&gt;To be continued&amp;hellip;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://1by2.github.io/post/python/generator2/&#34;&gt;To be continued&amp;hellip;&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
